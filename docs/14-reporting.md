@@ -2223,6 +2223,6 @@ Host your portfolio on a personal domain (blog, GitHub Pages, or a custom site) 
 
 ---
 
-**Next Module:** [Module 15 — Career Path & Certifications](15-career.md) (coming soon)
+**Next Module:** [Module 15 — Top 50 Pentesting Activities](15-top-50-pentesting/)
 
 *This module covered the critical skill of reporting and documentation — the bridge between finding vulnerabilities and getting them fixed. Remember: your technical skills get you through the door, but your communication skills determine your impact.*

@@ -7,7 +7,7 @@ nav_order: 3
 # Module 02 — Lab Setup
 {: .no_toc }
 
-A penetration tester is only as effective as their lab. This module walks you through building a complete, isolated hacking lab on Apple Silicon using UTM virtualization, configuring Kali Linux for offensive security work, setting up the LILYGO T-Embed CC1101 Plus for RF and hardware hacking, and deploying vulnerable target machines for safe, legal practice.
+A penetration tester is only as effective as their lab. This module walks you through building a complete, isolated hacking lab on Apple Silicon using UTM virtualization, configuring Kali Linux for offensive security work, setting up the ALFA AWUS036AXML WiFi 6E adapter for wireless pentesting, configuring the LILYGO T-Embed CC1101 Plus for RF and hardware hacking, and deploying vulnerable target machines for safe, legal practice.
 
 <details open markdown="block">
   <summary>Table of Contents</summary>
@@ -524,6 +524,159 @@ ip addr show
 sudo ip addr add 192.168.56.10/24 dev enp0s2
 sudo ip link set enp0s2 up
 ```
+
+---
+
+## ALFA AWUS036AXML WiFi 6E Adapter Setup
+
+### Why You Need a Dedicated WiFi Adapter
+
+Built-in WiFi on Macs **cannot** be used for wireless penetration testing in a virtual machine. macOS keeps exclusive control of the AirPort chipset, and it does not support monitor mode or packet injection. You need a dedicated USB WiFi adapter that can be passed through to your Kali VM via UTM's USB passthrough.
+
+{: .note }
+> The ALFA AWUS036AXML is the recommended adapter for this guide. It uses the MediaTek MT7921AUN chipset with in-kernel Linux drivers, meaning no third-party DKMS modules to compile. It supports WiFi 6E (802.11ax) across all three bands (2.4, 5, and 6 GHz), monitor mode, and packet injection out of the box on Kali ARM64.
+
+### Hardware Specifications
+
+| Spec | Detail |
+|------|--------|
+| **Chipset** | MediaTek MT7921AUN |
+| **WiFi Standard** | 802.11ax (WiFi 6E) |
+| **Frequency Bands** | 2.4 GHz / 5 GHz / 6 GHz (tri-band) |
+| **Interface** | USB 3.0 Type-A |
+| **Antennas** | 2x detachable RP-SMA (dual-band included) |
+| **Monitor Mode** | Yes |
+| **Packet Injection** | Yes |
+| **Linux Driver** | mt76 (in-kernel, mainline) |
+| **Max Data Rate** | 2.4 Gbps (WiFi 6E) |
+| **Kali ARM64** | Fully supported, no DKMS required |
+
+### Physical Setup
+
+1. **Attach the antennas** — screw both included antennas onto the RP-SMA connectors on the adapter. Finger-tight is sufficient.
+2. **Connect to your Mac** — plug the ALFA into a USB-A port. If your MacBook only has USB-C/Thunderbolt ports, use a USB-A to USB-C adapter or a USB-C hub with USB-A ports.
+3. **Verify on macOS** — open Terminal and run:
+
+```bash
+system_profiler SPUSBDataType | grep -A 5 "MediaTek"
+```
+
+You should see the adapter listed under USB 3.0 Bus. macOS will not be able to use it for WiFi (no macOS drivers), which is expected — it will be passed through to Kali.
+
+{: .tip }
+> Use a short USB-A to USB-C adapter rather than a long cable or hub. Direct connection provides the most reliable USB passthrough to UTM. If you use a hub, make sure it is USB 3.0 capable.
+
+### UTM USB Passthrough
+
+To make the ALFA adapter available inside your Kali VM:
+
+1. **Plug in the ALFA AWUS036AXML** to your Mac
+2. **Open UTM** and select your Kali VM
+3. Click the **gear icon** (Edit) to open VM settings
+4. Navigate to **USB** in the sidebar
+5. Ensure **USB Support** is enabled and set to **USB 3.0 (xHCI)**
+6. Click the **+** button under USB Device Filters
+7. Select the MediaTek device from the dropdown (it may appear as "MediaTek Inc." or "Wireless_Device")
+8. Click **Save**
+9. **Start the Kali VM**
+
+{: .note }
+> Setting up a USB device filter means UTM will automatically attach the ALFA adapter whenever you plug it in and the VM is running. Without a filter, you will need to manually attach it each time from the UTM toolbar menu (the USB icon at the top of the VM window).
+
+### Verifying the Adapter in Kali
+
+Once the VM is running with the adapter passed through, verify everything is working:
+
+```bash
+# Step 1: Check USB detection
+lsusb
+# Expected output (look for):
+# Bus 001 Device 003: ID 0e8d:7961 MediaTek Inc. Wireless_Device
+
+# Step 2: Verify the mt76 driver is loaded
+lsmod | grep mt76
+# Expected output:
+# mt7921u                xxxxx  0
+# mt7921_common          xxxxx  1 mt7921u
+# mt792x_lib             xxxxx  1 mt7921_common
+# mt76_connac_lib        xxxxx  1 mt792x_lib
+# mt76                   xxxxx  3 mt76_connac_lib,mt792x_lib,mt7921_common
+# mt76_usb               xxxxx  1 mt7921u
+
+# Step 3: Check the wireless interface
+iwconfig
+# Expected output:
+# wlan0     IEEE 802.11  ESSID:off/any
+#           Mode:Managed  Access Point: Not-Associated
+#           ...
+
+# Step 4: Verify interface details
+iw dev wlan0 info
+# Look for: type managed, channel info, addr (MAC address)
+```
+
+{: .tip }
+> If `lsusb` shows the device but `iwconfig` does not show `wlan0`, try manually loading the driver: `sudo modprobe mt7921u`. If that fails, update Kali: `sudo apt update && sudo apt full-upgrade -y` and reboot.
+
+### Testing Monitor Mode
+
+Monitor mode is essential for wireless pentesting — it allows your adapter to capture all wireless frames on a channel, not just traffic addressed to your MAC.
+
+```bash
+# Kill processes that may interfere
+sudo airmon-ng check kill
+
+# Enable monitor mode
+sudo airmon-ng start wlan0
+# Expected:
+# PHY     Interface       Driver          Chipset
+# phy0    wlan0           mt7921u         MediaTek Inc. Wireless_Device
+#               (mac80211 monitor mode vif enabled for [phy0]wlan0 on [phy0]wlan0mon)
+
+# Verify monitor mode is active
+iwconfig wlan0mon
+# Mode should show: Mode:Monitor
+
+# Quick test — scan for nearby networks
+sudo airodump-ng wlan0mon
+# You should see APs and clients populating the screen
+# Press Ctrl+C to stop
+
+# Return to managed mode when done
+sudo airmon-ng stop wlan0mon
+```
+
+### Testing Packet Injection
+
+Packet injection lets you send crafted wireless frames — required for deauthentication attacks, handshake captures, and more.
+
+```bash
+# Put adapter in monitor mode first
+sudo airmon-ng check kill
+sudo airmon-ng start wlan0
+
+# Test packet injection
+sudo aireplay-ng --test wlan0mon
+# Expected output:
+# 12:34:56:78:90:AB - channel: 6 - 30/30: 100%
+# Injection is working!
+
+# Stop monitor mode
+sudo airmon-ng stop wlan0mon
+```
+
+{: .warning }
+> Only test packet injection against your own access point. Injecting packets on networks you do not own is illegal. Even injection testing can disrupt nearby wireless networks.
+
+### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Adapter not appearing in `lsusb` | Unplug and re-plug. Check UTM USB settings. Try a different USB port/adapter. |
+| `lsusb` shows device but no `wlan0` | Run `sudo modprobe mt7921u`. Update Kali and reboot. |
+| Monitor mode fails | Run `sudo airmon-ng check kill` first. Some processes hold the interface. |
+| Injection test shows 0% | Verify monitor mode is active. Some 6 GHz channels may not support injection in all regions. |
+| USB disconnects randomly | Use a direct USB-A to USB-C adapter, not a hub. Enable USB 3.0 in UTM settings. |
 
 ---
 

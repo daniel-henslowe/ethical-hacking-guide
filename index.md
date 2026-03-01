@@ -9,7 +9,7 @@ permalink: /
 # Ethical Hacking Study Guide
 {: .fs-9 }
 
-Master ethical hacking with Kali Linux on M1 Mac (UTM) and the LILYGO T-Embed CC1101 Plus — from fundamentals to advanced exploitation.
+Master ethical hacking with Kali Linux on M1 Mac (UTM), the ALFA AWUS036AXML WiFi 6E adapter, and the LILYGO T-Embed CC1101 Plus — from fundamentals to advanced exploitation.
 {: .fs-6 .fw-300 }
 
 [Get Started — Lab Setup](/ethical-hacking-guide/docs/02-lab-setup/){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
@@ -22,8 +22,9 @@ Master ethical hacking with Kali Linux on M1 Mac (UTM) and the LILYGO T-Embed CC
 This is an exhaustive, interactive study guide designed for aspiring ethical hackers preparing for security certifications. It covers:
 
 - **Kali Linux** running virtually on an Apple Silicon (M1) MacBook via UTM
+- **ALFA AWUS036AXML** WiFi 6E adapter for wireless penetration testing
 - **LILYGO T-Embed CC1101 Plus** for sub-GHz RF security research
-- **14 comprehensive modules** from fundamentals to advanced techniques
+- **15 comprehensive modules** from fundamentals to advanced techniques
 - **Hands-on labs** with real tools and techniques
 - **Knowledge checks** to test your understanding
 
@@ -50,33 +51,35 @@ This is an exhaustive, interactive study guide designed for aspiring ethical hac
 | 12 | [Social Engineering](docs/12-social-engineering/) | SET, phishing, pretexting |
 | 13 | [Cryptography](docs/13-cryptography/) | Hashing, encryption, PKI, attacks |
 | 14 | [Reporting & Documentation](docs/14-reporting/) | Professional pentest reports |
+| 15 | [Top 50 Pentesting Activities](docs/15-top-50-pentesting/) | Hands-on capstone with 50 labs |
 
 ---
 
 ## Your Lab Environment
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  MacBook M1 (Host)                                      │
-│  ┌───────────────────────────────────────────────────┐  │
-│  │  UTM Virtual Machine                              │  │
-│  │  ┌─────────────────────────────────────────────┐  │  │
-│  │  │  Kali Linux (ARM64)                         │  │  │
-│  │  │  • Full toolset (600+ security tools)       │  │  │
-│  │  │  • Network: Bridged / NAT / Host-only       │  │  │
-│  │  │  • USB passthrough for CC1101               │  │  │
-│  │  └─────────────────────────────────────────────┘  │  │
-│  └───────────────────────────────────────────────────┘  │
-│                                                         │
-│  ┌───────────────────────┐                              │
-│  │  LILYGO T-Embed       │                              │
-│  │  CC1101 Plus          │                              │
-│  │  • ESP32-S3           │  ◄── USB-C ──► Kali VM       │
-│  │  • CC1101 Sub-GHz     │                              │
-│  │  • 1.9" TFT Display   │                              │
-│  │  • Rotary Encoder     │                              │
-│  └───────────────────────┘                              │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│  MacBook M1 (Host)                                               │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │  UTM Virtual Machine                                       │  │
+│  │  ┌──────────────────────────────────────────────────────┐  │  │
+│  │  │  Kali Linux (ARM64)                                  │  │  │
+│  │  │  • Full toolset (600+ security tools)                │  │  │
+│  │  │  • Network: Bridged / NAT / Host-only                │  │  │
+│  │  │  • USB passthrough for ALFA + CC1101                 │  │  │
+│  │  └──────────────────────────────────────────────────────┘  │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│  ┌───────────────────────────┐  ┌───────────────────────────┐   │
+│  │  ALFA AWUS036AXML         │  │  LILYGO T-Embed           │   │
+│  │  WiFi 6E Adapter          │  │  CC1101 Plus              │   │
+│  │  • MT7921AUN chipset      │  │  • ESP32-S3               │   │
+│  │  • 2.4 / 5 / 6 GHz       │  │  • CC1101 Sub-GHz         │   │
+│  │  • Monitor mode + inject  │  │  • 1.9" TFT Display       │   │
+│  │  • USB 3.0 (Type-A)      │  │  • Rotary Encoder         │   │
+│  │  └──── USB-A ──► Kali VM  │  │  └──── USB-C ──► Kali VM  │   │
+│  └───────────────────────────┘  └───────────────────────────┘   │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -85,6 +88,7 @@ This is an exhaustive, interactive study guide designed for aspiring ethical hac
 
 - Apple Silicon Mac (M1/M2/M3) with at least 16GB RAM
 - UTM virtualization software (free from [mac.getutm.app](https://mac.getutm.app))
+- ALFA AWUS036AXML WiFi 6E USB adapter + USB-A to USB-C adapter (if your Mac lacks USB-A)
 - LILYGO T-Embed CC1101 Plus hardware
 - USB-C cable for T-Embed connection
 - Basic understanding of networking (TCP/IP, DNS, HTTP)

@@ -7,7 +7,7 @@ nav_order: 11
 # Module 10 — Wireless Security
 {: .no_toc }
 
-Wireless networks are everywhere, and their security (or lack thereof) is one of the most impactful areas in penetration testing. This module covers wireless networking fundamentals, security protocols from WEP through WPA3, practical attacks on your own test networks, Bluetooth security, and defense strategies.
+Wireless networks are everywhere, and their security (or lack thereof) is one of the most impactful areas in penetration testing. This module uses the **ALFA AWUS036AXML WiFi 6E adapter** for all wireless exercises. It covers wireless networking fundamentals, security protocols from WEP through WPA3, practical attacks on your own test networks, Bluetooth security, and defense strategies.
 
 {: .danger }
 > **Legal Warning**: Attacking wireless networks you do not own or have explicit written authorization to test is a federal crime under the Computer Fraud and Abuse Act (CFAA) and equivalent laws worldwide. All exercises in this module must be performed on **your own equipment** or with **documented written permission**. Unauthorized wireless interception can also violate wiretapping laws. Always operate within legal boundaries.
@@ -435,7 +435,7 @@ Built-in Wi-Fi adapters on Macs cannot be passed through to virtual machines in 
 | **Panda PAU09** | Ralink RT5572 | 2.4/5 GHz | Yes | Yes | Good (in-kernel) | ~$20 |
 
 {: .tip }
-> The **Alfa AWUS036AXML** is the best choice for Apple Silicon Kali setups. It uses the MediaTek MT7921AU chipset with in-kernel Linux drivers (no DKMS headaches), supports Wi-Fi 6 (802.11ax), and works reliably with USB passthrough on UTM. The **AWUS036ACM** is a solid budget alternative with similar in-kernel support.
+> This guide uses the **ALFA AWUS036AXML** — the best choice for Apple Silicon Kali setups. It uses the MediaTek MT7921AUN chipset with in-kernel Linux drivers (no DKMS headaches), supports WiFi 6E (802.11ax) across 2.4/5/6 GHz bands, and works reliably with USB passthrough on UTM. See [Module 02 — Lab Setup](02-lab-setup/) for complete ALFA adapter installation and verification instructions. The **AWUS036ACM** is a solid budget alternative with similar in-kernel support.
 
 ### Driver Installation on Kali ARM64
 
@@ -1597,6 +1597,9 @@ Wireless Intrusion Detection/Prevention Systems monitor the RF environment for t
 - **Client isolation**: Prevent wireless clients from communicating with each other (AP-level setting)
 
 ---
+
+{: .note }
+> **Adapter Setup**: All wireless exercises in this module require the ALFA AWUS036AXML (or compatible adapter) connected to your Kali VM via USB passthrough. If you have not set up your adapter yet, complete the [ALFA AWUS036AXML setup in Module 02](02-lab-setup/#alfa-awus036axml-wifi-6e-adapter-setup) first.
 
 ## Hands-On Exercises
 
