@@ -1,0 +1,441 @@
+// =============================================================================
+// Custom Styles — Catppuccin Frappe Polish
+// =============================================================================
+
+// --- Catppuccin Frappe Tokens (repeated for custom.scss scope) ---------------
+
+$ctp-rosewater: #f2d5cf;
+$ctp-flamingo:  #eebebe;
+$ctp-pink:      #f4b8e4;
+$ctp-mauve:     #ca9ee6;
+$ctp-red:       #e78284;
+$ctp-maroon:    #ea999c;
+$ctp-peach:     #ef9f76;
+$ctp-yellow:    #e5c890;
+$ctp-green:     #a6d189;
+$ctp-teal:      #81c8be;
+$ctp-sky:       #99d1db;
+$ctp-sapphire:  #85c1dc;
+$ctp-blue:      #8caaee;
+$ctp-lavender:  #babbf1;
+$ctp-text:      #c6d0f5;
+$ctp-subtext1:  #b5bfe2;
+$ctp-subtext0:  #a5adce;
+$ctp-overlay2:  #949cbb;
+$ctp-overlay1:  #838ba7;
+$ctp-overlay0:  #737994;
+$ctp-surface2:  #626880;
+$ctp-surface1:  #51576d;
+$ctp-surface0:  #414559;
+$ctp-base:      #303446;
+$ctp-mantle:    #292c3c;
+$ctp-crust:     #232634;
+
+// --- Global ------------------------------------------------------------------
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba($ctp-blue, 0.3);
+  color: $ctp-text;
+}
+
+// --- Headings ----------------------------------------------------------------
+
+.main-content {
+  h1 { color: $ctp-lavender; }
+  h2 { color: $ctp-blue; }
+  h3 { color: $ctp-sapphire; }
+  h4 { color: $ctp-sky; }
+  h5, h6 { color: $ctp-teal; }
+}
+
+// --- Links -------------------------------------------------------------------
+
+a {
+  transition: color 0.2s ease, opacity 0.2s ease;
+
+  &:hover {
+    color: $ctp-lavender;
+  }
+}
+
+// --- Code Blocks -------------------------------------------------------------
+
+code {
+  font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.875em;
+  font-variant-ligatures: none;
+}
+
+// Inline code
+code.language-plaintext,
+p > code,
+li > code,
+td > code {
+  background-color: $ctp-surface0;
+  color: $ctp-flamingo;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid $ctp-surface1;
+}
+
+// Code blocks
+div.highlighter-rouge,
+figure.highlight {
+  background-color: $ctp-mantle;
+  border: 1px solid $ctp-surface0;
+  border-radius: 8px;
+  overflow: hidden;
+
+  pre.highlight {
+    background-color: $ctp-mantle;
+    padding: 1rem 1.25rem;
+    margin: 0;
+    overflow-x: auto;
+  }
+}
+
+// --- Syntax Highlighting (Rouge + Catppuccin Frappe) -------------------------
+
+.highlight {
+  .c, .c1, .cm, .cs { color: $ctp-overlay1; font-style: italic; } // Comments
+  .k, .kc, .kd, .kn, .kp, .kr, .kt { color: $ctp-mauve; }        // Keywords
+  .s, .s1, .s2, .sb, .sc, .sh, .sx { color: $ctp-green; }         // Strings
+  .si { color: $ctp-peach; }                                        // String interpolation
+  .sr { color: $ctp-teal; }                                         // Regex
+  .nf, .fm { color: $ctp-blue; }                                    // Function names
+  .nc { color: $ctp-yellow; }                                       // Class names
+  .nb { color: $ctp-peach; }                                        // Builtins
+  .na { color: $ctp-blue; }                                         // Attributes
+  .nn { color: $ctp-yellow; }                                       // Namespace
+  .no, .nd { color: $ctp-peach; }                                   // Constants, decorators
+  .ni { color: $ctp-blue; }                                         // Entity
+  .ne { color: $ctp-red; }                                          // Exception
+  .nv, .vc, .vg, .vi { color: $ctp-flamingo; }                     // Variables
+  .o, .ow { color: $ctp-sky; }                                      // Operators
+  .p { color: $ctp-text; }                                           // Punctuation
+  .mi, .mf, .mh, .mo, .il { color: $ctp-peach; }                   // Numbers
+  .nt { color: $ctp-blue; }                                          // HTML tags
+  .err { color: $ctp-red; }                                          // Errors
+  .gd { color: $ctp-red; }                                           // Diff deleted
+  .gi { color: $ctp-green; }                                         // Diff inserted
+  .ge { font-style: italic; }                                        // Emphasis
+  .gs { font-weight: bold; }                                         // Strong
+  .gh { color: $ctp-blue; font-weight: bold; }                       // Heading
+  .w { color: $ctp-text; }                                            // Whitespace
+  .bp { color: $ctp-flamingo; }                                      // Pseudo builtins
+  .se { color: $ctp-peach; }                                         // String escape
+}
+
+// --- Tables ------------------------------------------------------------------
+
+.main-content table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid $ctp-surface1;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+
+  th {
+    background-color: $ctp-surface0;
+    color: $ctp-lavender;
+    font-weight: 600;
+    border-bottom: 2px solid $ctp-surface1;
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid $ctp-surface0;
+    color: $ctp-subtext1;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background-color: rgba($ctp-surface0, 0.4);
+  }
+
+  // Emoji/icon centered columns
+  td:nth-child(n) {
+    &[align="center"] {
+      text-align: center;
+    }
+  }
+}
+
+// --- Sidebar / Navigation ----------------------------------------------------
+
+.site-nav {
+  background-color: $ctp-mantle;
+  border-right: 1px solid $ctp-surface0;
+
+  .nav-list-item {
+    .nav-list-link {
+      color: $ctp-subtext0;
+      transition: color 0.15s ease, background-color 0.15s ease;
+
+      &:hover {
+        color: $ctp-text;
+        background-color: rgba($ctp-surface0, 0.5);
+      }
+
+      &.active {
+        color: $ctp-blue;
+        font-weight: 600;
+        border-left: 3px solid $ctp-blue;
+        background-color: rgba($ctp-blue, 0.08);
+      }
+    }
+  }
+}
+
+// --- Site Header -------------------------------------------------------------
+
+.site-header {
+  background-color: $ctp-crust;
+  border-bottom: 1px solid $ctp-surface0;
+}
+
+.site-title {
+  color: $ctp-text !important;
+  font-weight: 700;
+}
+
+// --- Search ------------------------------------------------------------------
+
+.search-input {
+  background-color: $ctp-surface0;
+  border: 1px solid $ctp-surface1;
+  color: $ctp-text;
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: $ctp-blue;
+    box-shadow: 0 0 0 3px rgba($ctp-blue, 0.15);
+  }
+
+  &::placeholder {
+    color: $ctp-overlay0;
+  }
+}
+
+.search-results {
+  background-color: $ctp-mantle;
+  border: 1px solid $ctp-surface0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+// --- Callouts ----------------------------------------------------------------
+// Enhanced callout styling to match Frappe palette
+
+.warning, .danger, .tip, .note, .exercise, .quiz {
+  border-radius: 8px;
+  border-left-width: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+
+  .callout-title {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+}
+
+.warning {
+  background-color: rgba($ctp-peach, 0.08);
+  border-left-color: $ctp-peach;
+  .callout-title { color: $ctp-peach; }
+}
+
+.danger {
+  background-color: rgba($ctp-red, 0.08);
+  border-left-color: $ctp-red;
+  .callout-title { color: $ctp-red; }
+}
+
+.tip {
+  background-color: rgba($ctp-green, 0.08);
+  border-left-color: $ctp-green;
+  .callout-title { color: $ctp-green; }
+}
+
+.note {
+  background-color: rgba($ctp-blue, 0.08);
+  border-left-color: $ctp-blue;
+  .callout-title { color: $ctp-blue; }
+}
+
+.exercise {
+  background-color: rgba($ctp-mauve, 0.08);
+  border-left-color: $ctp-mauve;
+  .callout-title { color: $ctp-mauve; }
+}
+
+.quiz {
+  background-color: rgba($ctp-yellow, 0.08);
+  border-left-color: $ctp-yellow;
+  .callout-title { color: $ctp-yellow; }
+}
+
+// --- Buttons -----------------------------------------------------------------
+
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: $ctp-blue;
+  color: $ctp-crust;
+
+  &:hover {
+    background-color: lighten($ctp-blue, 5%);
+    box-shadow: 0 4px 12px rgba($ctp-blue, 0.3);
+  }
+}
+
+.btn:not(.btn-primary) {
+  background-color: $ctp-surface0;
+  color: $ctp-text;
+  border-color: $ctp-surface1;
+
+  &:hover {
+    background-color: $ctp-surface1;
+    border-color: $ctp-surface2;
+  }
+}
+
+// --- Blockquotes (inside callouts handled above) -----------------------------
+
+.main-content blockquote:not(.warning):not(.danger):not(.tip):not(.note):not(.exercise):not(.quiz) {
+  border-left: 3px solid $ctp-surface2;
+  color: $ctp-subtext0;
+  background-color: rgba($ctp-surface0, 0.3);
+  padding: 0.75rem 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+// --- Details / Summary (collapsibles) ----------------------------------------
+
+details {
+  background-color: rgba($ctp-surface0, 0.3);
+  border: 1px solid $ctp-surface0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+
+  summary {
+    cursor: pointer;
+    color: $ctp-blue;
+    font-weight: 600;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $ctp-lavender;
+    }
+  }
+}
+
+// --- Horizontal Rules --------------------------------------------------------
+
+.main-content hr {
+  border: none;
+  border-top: 1px solid $ctp-surface1;
+  margin: 2rem 0;
+}
+
+// --- Footer ------------------------------------------------------------------
+
+.site-footer {
+  border-top: 1px solid $ctp-surface0;
+  color: $ctp-overlay0;
+  font-size: 0.8125rem;
+}
+
+// --- Back to Top Button ------------------------------------------------------
+
+#back-to-top {
+  background-color: $ctp-surface0;
+  color: $ctp-text;
+  border: 1px solid $ctp-surface1;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $ctp-surface1;
+    border-color: $ctp-blue;
+    color: $ctp-blue;
+  }
+}
+
+// --- Scrollbar (Webkit) ------------------------------------------------------
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $ctp-mantle;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $ctp-surface2;
+  border-radius: 4px;
+
+  &:hover {
+    background: $ctp-overlay0;
+  }
+}
+
+// --- Breadcrumbs -------------------------------------------------------------
+
+.breadcrumb-nav {
+  color: $ctp-overlay0;
+
+  a {
+    color: $ctp-overlay1;
+
+    &:hover {
+      color: $ctp-blue;
+    }
+  }
+}
+
+// --- Aux Links (header) ------------------------------------------------------
+
+.aux-nav .aux-nav-list-item a {
+  color: $ctp-subtext0;
+
+  &:hover {
+    color: $ctp-text;
+  }
+}
+
+// --- Strong / Bold -----------------------------------------------------------
+
+.main-content strong {
+  color: $ctp-text;
+  font-weight: 700;
+}
+
+// --- Label / Badge Utility ---------------------------------------------------
+
+.label {
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.15em 0.6em;
+}

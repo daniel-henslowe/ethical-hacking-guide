@@ -21,7 +21,7 @@ search_enabled: true
 search.rel_url: true
 search.tokenizer_separator: /[\s/]+/
 
-color_scheme: dark
+color_scheme: catppuccin-frappe
 
 callouts:
   warning:

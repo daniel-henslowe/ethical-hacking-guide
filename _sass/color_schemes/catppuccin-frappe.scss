@@ -1,0 +1,97 @@
+// =============================================================================
+// Catppuccin Frappe — Custom Color Scheme for Just the Docs
+// https://catppuccin.com/palette
+// =============================================================================
+
+$color-scheme: dark;
+
+// --- Catppuccin Frappe Palette -----------------------------------------------
+
+$ctp-rosewater: #f2d5cf;
+$ctp-flamingo:  #eebebe;
+$ctp-pink:      #f4b8e4;
+$ctp-mauve:     #ca9ee6;
+$ctp-red:       #e78284;
+$ctp-maroon:    #ea999c;
+$ctp-peach:     #ef9f76;
+$ctp-yellow:    #e5c890;
+$ctp-green:     #a6d189;
+$ctp-teal:      #81c8be;
+$ctp-sky:       #99d1db;
+$ctp-sapphire:  #85c1dc;
+$ctp-blue:      #8caaee;
+$ctp-lavender:  #babbf1;
+$ctp-text:      #c6d0f5;
+$ctp-subtext1:  #b5bfe2;
+$ctp-subtext0:  #a5adce;
+$ctp-overlay2:  #949cbb;
+$ctp-overlay1:  #838ba7;
+$ctp-overlay0:  #737994;
+$ctp-surface2:  #626880;
+$ctp-surface1:  #51576d;
+$ctp-surface0:  #414559;
+$ctp-base:      #303446;
+$ctp-mantle:    #292c3c;
+$ctp-crust:     #232634;
+
+// --- Just the Docs Color Families --------------------------------------------
+// Each family has 4 shades (000 = lightest, 300 = darkest)
+
+// Grey (light)
+$grey-lt-000: $ctp-text;
+$grey-lt-100: $ctp-subtext1;
+$grey-lt-200: $ctp-subtext0;
+$grey-lt-300: $ctp-overlay2;
+
+// Grey (dark)
+$grey-dk-000: $ctp-overlay0;
+$grey-dk-100: $ctp-surface2;
+$grey-dk-200: $ctp-surface1;
+$grey-dk-300: $ctp-surface0;
+
+// Purple
+$purple-000: $ctp-mauve;
+$purple-100: rgba($ctp-mauve, 0.6);
+$purple-200: rgba($ctp-mauve, 0.3);
+$purple-300: rgba($ctp-mauve, 0.15);
+
+// Blue
+$blue-000: $ctp-blue;
+$blue-100: rgba($ctp-blue, 0.6);
+$blue-200: rgba($ctp-blue, 0.3);
+$blue-300: rgba($ctp-blue, 0.15);
+
+// Green
+$green-000: $ctp-green;
+$green-100: rgba($ctp-green, 0.6);
+$green-200: rgba($ctp-green, 0.3);
+$green-300: rgba($ctp-green, 0.15);
+
+// Yellow
+$yellow-000: $ctp-yellow;
+$yellow-100: rgba($ctp-yellow, 0.6);
+$yellow-200: rgba($ctp-yellow, 0.3);
+$yellow-300: rgba($ctp-yellow, 0.15);
+
+// Red
+$red-000: $ctp-red;
+$red-100: rgba($ctp-red, 0.6);
+$red-200: rgba($ctp-red, 0.3);
+$red-300: rgba($ctp-red, 0.15);
+
+// --- Semantic Colors ---------------------------------------------------------
+
+$body-background-color: $ctp-base;
+$body-text-color: $ctp-text;
+$body-heading-color: $ctp-text;
+$sidebar-color: $ctp-mantle;
+$link-color: $ctp-blue;
+$btn-primary-color: $ctp-blue;
+$base-button-color: $ctp-surface1;
+$code-background-color: $ctp-mantle;
+$table-background-color: $ctp-base;
+$search-background-color: $ctp-surface0;
+$search-result-preview-color: $ctp-subtext0;
+$nav-child-link-color: $ctp-subtext1;
+$feedback-color: $ctp-overlay0;
+$border-color: $ctp-surface1;
